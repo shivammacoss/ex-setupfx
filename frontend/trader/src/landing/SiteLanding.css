@@ -947,8 +947,11 @@
 .site-landing .text-glitch {
   font-family: 'Inter Tight', sans-serif;
   font-weight: 900;
-  font-size: clamp(2rem, 8vw, 7rem);
-  line-height: 1.0;
+  /* Scale by available width so longest line ("TRADING PLATFORMS", ~17 chars
+     incl. space) fits within the container at all viewport widths. Cap at
+     4.5rem on very wide screens so the hero stays balanced. */
+  font-size: clamp(1.6rem, 5.2vw, 4.5rem);
+  line-height: 1.05;
   letter-spacing: -0.02em;
   text-transform: uppercase;
   margin: 0;
@@ -968,6 +971,10 @@
   display: block;
   white-space: nowrap;
   width: 100%;
+  max-width: 100%;
+  /* Fallback: if a single word is still too wide for tiny viewports, shrink
+     by letter-spacing rather than overflow. */
+  text-overflow: clip;
 }
 
 .site-landing .text-glitch:hover {
@@ -1028,7 +1035,7 @@
 /* Tablet landscape (1024px) */
 @media (max-width: 1024px) {
   .site-landing .text-glitch {
-    font-size: clamp(1.8rem, 5.5vw, 4rem);
+    font-size: clamp(1.6rem, 4.8vw, 3.2rem);
   }
   .site-landing .hero-glitch-content {
     padding: 100px 28px 60px;
