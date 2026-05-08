@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="fxa-mark-g" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00E676"/>
+      <stop offset="1" stop-color="#00B050"/>
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="12" fill="url(#fxa-mark-g)"/>
+  <path d="M13 38 L13 18 L33 18" stroke="#FFFFFF" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M13 29 L27 29" stroke="#FFFFFF" stroke-width="3.6" stroke-linecap="round"/>
+  <path d="M29 16 L36 26 L29 36" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

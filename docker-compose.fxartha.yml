@@ -1,0 +1,296 @@
+# Fxartha — fully standalone stack. Has its own postgres, redis, timescale,
+# kafka, gateway, admin-api, market-data, b-book/risk engines, and frontends.
+# Does NOT depend on the piphigh stack — you can start this on its own.
+#
+# Start (from repo root):
+#   docker compose -f docker-compose.fxartha.yml up -d
+#   docker compose -f docker-compose.fxartha.yml --profile migrate up migrate   # (first time only)
+#
+# Stop:
+#   docker compose -f docker-compose.fxartha.yml down
+#
+# Host ports — match the defaults expected by local `npm run dev`:
+#   gateway       8000  →  8000
+#   admin-api     8001  →  8001
+#   kafka-ui      8180  →  8080   (offset to avoid clash with other UIs)
+#   trader-fe     3020  →  3000
+#   admin-fe      3021  →  3001
+#
+# NOTE: do not run the piphigh stack at the same time — it binds the same
+# host ports (8000/8001). Stop one before starting the other.
+
+name: fxartha
+
+networks:
+  default:
+    name: fxartha_default
+
+volumes:
+  fxartha_pg_data:
+  fxartha_ts_data:
+  fxartha_redis_data:
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: fxartha-postgres
+    environment:
+      POSTGRES_USER: ${FXARTHA_POSTGRES_USER:-fxartha}
+      POSTGRES_PASSWORD: ${FXARTHA_POSTGRES_PASSWORD:-fxartha_dev}
+      POSTGRES_DB: ${FXARTHA_POSTGRES_DB:-fxartha}
+    volumes:
+      - fxartha_pg_data:/var/lib/postgresql/data
+      - ./backend/infra/docker/init-db.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${FXARTHA_POSTGRES_USER:-fxartha}"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  timescaledb:
+    image: timescale/timescaledb:latest-pg16
+    container_name: fxartha-timescaledb
+    environment:
+      POSTGRES_USER: ${FXARTHA_TIMESCALE_USER:-fxartha}
+      POSTGRES_PASSWORD: ${FXARTHA_TIMESCALE_PASSWORD:-fxartha_dev}
+      POSTGRES_DB: ${FXARTHA_TIMESCALE_DB:-marketdata}
+    volumes:
+      - fxartha_ts_data:/var/lib/postgresql/data
+      - ./backend/infra/docker/init-timescale.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${FXARTHA_TIMESCALE_USER:-fxartha}"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: fxartha-redis
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - fxartha_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.6.0
+    container_name: fxartha-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: confluentinc/cp-kafka:7.6.0
+    container_name: fxartha-kafka
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_INTERNAL://kafka:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+    healthcheck:
+      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: fxartha-kafka-ui
+    depends_on:
+      - kafka
+    ports:
+      - "8180:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: fxartha
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
+
+  admin-api:
+    build:
+      context: .
+      dockerfile: backend/services/admin/Dockerfile
+    image: fxartha-admin-api
+    container_name: fxartha-admin-api
+    ports:
+      - "8001:8001"
+    env_file:
+      - path: ./.env
+        required: false
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      REDIS_URL: redis://redis:6379/1
+      DATABASE_URL: postgresql+asyncpg://${FXARTHA_POSTGRES_USER:-fxartha}:${FXARTHA_POSTGRES_PASSWORD:-fxartha_dev}@postgres:5432/${FXARTHA_POSTGRES_DB:-fxartha}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET:?Set ADMIN_JWT_SECRET in .env}
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env}
+      BANNERS_UPLOAD_DIR: /app/uploads/banners
+      WALLET_UPLOAD_ROOT: /app/uploads/wallet
+    volumes:
+      - ./backend/services/admin:/app
+      - ./backend/packages/common:/app/packages/common
+      - ./backend/uploads:/app/uploads
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001", "--reload"]
+
+  gateway:
+    build:
+      context: .
+      dockerfile: backend/services/gateway/Dockerfile
+    image: fxartha-gateway
+    container_name: fxartha-gateway
+    ports:
+      - "8000:8000"
+    env_file:
+      - path: ./.env
+        required: false
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_started
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${FXARTHA_POSTGRES_USER:-fxartha}:${FXARTHA_POSTGRES_PASSWORD:-fxartha_dev}@postgres:5432/${FXARTHA_POSTGRES_DB:-fxartha}
+      REDIS_URL: redis://redis:6379/0
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      BANNERS_UPLOAD_DIR: /app/uploads/banners
+      WALLET_UPLOAD_ROOT: /app/uploads/wallet
+    volumes:
+      - ./backend/services/gateway:/app/services/gateway
+      - ./backend/packages:/app/packages
+      - ./backend/uploads:/app/uploads
+
+  market-data:
+    build:
+      context: .
+      dockerfile: backend/services/market-data/Dockerfile
+    image: fxartha-market-data
+    container_name: fxartha-market-data
+    env_file:
+      - path: ./.env
+        required: false
+    environment:
+      INFOWAY_API_KEY: ${INFOWAY_API_KEY:-}
+      INFOWAY_API_URL: ${INFOWAY_API_URL:-https://api.infoway.io}
+      DATABASE_URL: postgresql+asyncpg://${FXARTHA_TIMESCALE_USER:-fxartha}:${FXARTHA_TIMESCALE_PASSWORD:-fxartha_dev}@timescaledb:5432/${FXARTHA_TIMESCALE_DB:-marketdata}
+      REDIS_URL: redis://redis:6379/0
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+    depends_on:
+      timescaledb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_started
+    volumes:
+      - ./backend/services/market-data:/app/services/market_data
+      - ./backend/packages:/app/packages
+
+  b-book-engine:
+    build:
+      context: .
+      dockerfile: backend/services/b-book-engine/Dockerfile
+    image: fxartha-b-book-engine
+    container_name: fxartha-b-book-engine
+    env_file:
+      - path: ./.env
+        required: false
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${FXARTHA_POSTGRES_USER:-fxartha}:${FXARTHA_POSTGRES_PASSWORD:-fxartha_dev}@postgres:5432/${FXARTHA_POSTGRES_DB:-fxartha}
+      REDIS_URL: redis://redis:6379/0
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_started
+    volumes:
+      - ./backend/services/b-book-engine:/app/services/b_book_engine
+      - ./backend/packages:/app/packages
+
+  risk-engine:
+    build:
+      context: .
+      dockerfile: backend/services/risk-engine/Dockerfile
+    image: fxartha-risk-engine
+    container_name: fxartha-risk-engine
+    env_file:
+      - path: ./.env
+        required: false
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${FXARTHA_POSTGRES_USER:-fxartha}:${FXARTHA_POSTGRES_PASSWORD:-fxartha_dev}@postgres:5432/${FXARTHA_POSTGRES_DB:-fxartha}
+      REDIS_URL: redis://redis:6379/0
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_started
+    volumes:
+      - ./backend/services/risk-engine:/app/services/risk_engine
+      - ./backend/packages:/app/packages
+
+  trader-frontend:
+    build:
+      context: ./frontend/trader
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_APP_VERSION: ${APP_VERSION:-fxartha}
+    image: fxartha-trader-frontend
+    container_name: fxartha-trader-frontend
+    ports:
+      - "3020:3000"
+    environment:
+      INTERNAL_API_URL: http://gateway:8000/api/v1
+      TRADER_API_PROXY_TARGET: http://gateway:8000
+    depends_on:
+      - gateway
+    restart: unless-stopped
+
+  admin-frontend:
+    build:
+      context: ./frontend/admin
+      dockerfile: Dockerfile
+    image: fxartha-admin-frontend
+    container_name: fxartha-admin-frontend
+    ports:
+      - "3021:3001"
+    environment:
+      ADMIN_API_PROXY_TARGET: http://admin-api:8001
+    depends_on:
+      - gateway
+      - admin-api
+    restart: unless-stopped
+
+  # First-time DB migration. Run with:
+  #   docker compose -f docker-compose.fxartha.yml --profile migrate up migrate
+  migrate:
+    image: python:3.12-slim
+    container_name: fxartha-migrate
+    working_dir: /app
+    command: >
+      sh -c "pip install -e packages/common --quiet &&
+             pip install alembic sqlalchemy[asyncio] asyncpg --quiet &&
+             alembic -c infra/migrations/alembic.ini upgrade head"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${FXARTHA_POSTGRES_USER:-fxartha}:${FXARTHA_POSTGRES_PASSWORD:-fxartha_dev}@postgres:5432/${FXARTHA_POSTGRES_DB:-fxartha}
+    volumes:
+      - ./backend:/app
+    profiles:
+      - migrate
