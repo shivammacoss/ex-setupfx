@@ -243,24 +243,43 @@ class InfowayFeed:
 
                     hb_task = asyncio.create_task(self._heartbeat_loop(ws))
 
+                    msg_count = 0
+                    depth_count = 0
+                    first_msg_logged = False
+
                     async for raw in ws:
                         if not self._running:
                             break
                         try:
                             msg = json.loads(raw)
                         except json.JSONDecodeError:
+                            logger.debug("Infoway [%s] non-JSON frame: %r", business, raw[:200])
                             continue
+                        msg_count += 1
+                        if not first_msg_logged:
+                            # First inbound message — log it raw so we can debug API contract issues.
+                            logger.info("Infoway [%s] first message received: %s", business, json.dumps(msg)[:500])
+                            first_msg_logged = True
                         code = msg.get("code")
                         if code == 10005:
+                            depth_count += 1
                             self._emit_depth(msg.get("data") or {})
+                            if depth_count == 1:
+                                logger.info("Infoway [%s] first DEPTH tick received — feed is LIVE", business)
                         elif code in (10004, 10001):
-                            logger.debug("Infoway [%s] ack: %s", business, msg.get("msg"))
+                            # Subscription / heartbeat ACK — log first one at INFO so we can confirm subscription was accepted.
+                            if msg_count <= 5:
+                                logger.info("Infoway [%s] ack code=%s msg=%s", business, code, msg.get("msg"))
+                            else:
+                                logger.debug("Infoway [%s] ack: %s", business, msg.get("msg"))
                         elif code and code >= 400:
                             logger.warning(
-                                "Infoway [%s] error (check API key / plan / symbol limits): %s",
-                                business,
-                                msg,
+                                "Infoway [%s] error (check API key / plan / symbol codes): code=%s msg=%s full=%s",
+                                business, code, msg.get("msg"), json.dumps(msg)[:400],
                             )
+                        else:
+                            # Unknown code — log so we can see what server is sending.
+                            logger.warning("Infoway [%s] unknown response code=%s msg=%s", business, code, json.dumps(msg)[:300])
             except asyncio.CancelledError:
                 break
             except Exception as exc:

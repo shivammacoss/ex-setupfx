@@ -219,8 +219,14 @@ export default function OrderPanel() {
         toast.error(e?.message || 'Order failed');
       })
       .finally(() => {
+        // Reset order panel to fresh state so Buy/Sell are immediately usable
+        // for the next trade without ghosted state. Without this, the side
+        // highlight would stay on whichever button was pressed, and SL/TP
+        // from the previous order would carry over to the next one.
         setSubmitting(false);
         setConfirmingSide(null);
+        setSl('');
+        setTp('');
       });
   };
 
