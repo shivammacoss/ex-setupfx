@@ -30,6 +30,17 @@ interface TradeRow {
   profit?: number;
   pnl?: number;
   status?: string;
+  close_reason?: string | null;
+}
+
+function reasonBadge(r?: string | null) {
+  const reason = (r || 'manual').toLowerCase();
+  if (reason === 'sl') return { label: 'SL', cls: 'bg-red-50 text-red-600' };
+  if (reason === 'tp') return { label: 'TP', cls: 'bg-emerald-50 text-emerald-600' };
+  if (reason === 'admin') return { label: 'Admin', cls: 'bg-amber-50 text-amber-600' };
+  if (reason === 'stopout' || reason === 'margin_call') return { label: 'Stopout', cls: 'bg-orange-50 text-orange-600' };
+  if (reason.startsWith('copy')) return { label: 'Copy', cls: 'bg-blue-50 text-blue-600' };
+  return { label: 'Manual', cls: 'bg-gray-100 text-gray-600' };
 }
 
 const RANGES = [
@@ -193,6 +204,7 @@ export default function HistoryOfOrdersPage() {
             const profit = t.profit ?? t.pnl ?? 0;
             const positive = profit >= 0;
             const isSell = t.side?.toLowerCase() === 'sell';
+            const r = reasonBadge(t.close_reason);
             return (
               <div key={t.id} className="bg-bg-primary border border-border-primary rounded-xl p-3.5">
                 <div className="flex items-center justify-between gap-2 mb-2">
@@ -201,6 +213,7 @@ export default function HistoryOfOrdersPage() {
                     <span className={`shrink-0 inline-flex px-2 py-0.5 rounded text-[10px] font-semibold uppercase ${
                       isSell ? 'bg-red-500/10 text-red-500' : 'bg-emerald-500/10 text-emerald-500'
                     }`}>{t.side}</span>
+                    <span className={`shrink-0 inline-flex px-1.5 py-0.5 rounded text-[10px] font-semibold ${r.cls}`}>{r.label}</span>
                   </div>
                   <span className={`text-[14px] font-bold tabular-nums shrink-0 ${positive ? 'text-emerald-500' : 'text-red-500'}`}>
                     {positive ? '+' : '−'}{fmt(Math.abs(profit))}
@@ -246,19 +259,21 @@ export default function HistoryOfOrdersPage() {
                   <th className="text-right px-5 py-3 font-medium">Lots</th>
                   <th className="text-right px-5 py-3 font-medium">Opening price</th>
                   <th className="text-right px-5 py-3 font-medium">Closing price</th>
+                  <th className="text-left px-5 py-3 font-medium">Reason</th>
                   <th className="text-right px-5 py-3 font-medium">Profit, USD</th>
                 </tr>
               </thead>
               <tbody>
                 {loading && (
-                  <tr><td colSpan={8} className="text-center px-5 py-12 text-text-tertiary">Loading…</td></tr>
+                  <tr><td colSpan={9} className="text-center px-5 py-12 text-text-tertiary">Loading…</td></tr>
                 )}
                 {!loading && filtered.length === 0 && (
-                  <tr><td colSpan={8} className="text-center px-5 py-12 text-text-tertiary">No orders in this period.</td></tr>
+                  <tr><td colSpan={9} className="text-center px-5 py-12 text-text-tertiary">No orders in this period.</td></tr>
                 )}
                 {!loading && filtered.map((t) => {
                   const profit = t.profit ?? t.pnl ?? 0;
                   const positive = profit >= 0;
+                  const r = reasonBadge(t.close_reason);
                   return (
                     <tr key={t.id} className="border-b border-border-primary/70 last:border-0 hover:bg-bg-hover/40">
                       <td className="px-5 py-3 font-medium text-text-primary">{t.symbol}</td>
@@ -272,6 +287,9 @@ export default function HistoryOfOrdersPage() {
                       <td className="px-5 py-3 text-right text-text-primary tabular-nums">{fmt(t.lots ?? t.volume)}</td>
                       <td className="px-5 py-3 text-right text-text-primary tabular-nums">{fmt(t.open_price ?? t.opening_price)}</td>
                       <td className="px-5 py-3 text-right text-text-primary tabular-nums">{fmt(t.close_price ?? t.closing_price ?? undefined)}</td>
+                      <td className="px-5 py-3">
+                        <span className={`inline-flex px-2 py-0.5 rounded text-[11px] font-semibold ${r.cls}`}>{r.label}</span>
+                      </td>
                       <td className={`px-5 py-3 text-right tabular-nums font-semibold ${positive ? 'text-emerald-600' : 'text-red-500'}`}>
                         {positive ? '' : '−'}{fmt(Math.abs(profit))}
                       </td>
