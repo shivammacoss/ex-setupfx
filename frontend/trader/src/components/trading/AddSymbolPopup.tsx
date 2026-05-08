@@ -186,12 +186,12 @@ export default function AddSymbolPopup({ open, onClose, onSelect, existingTabs, 
   return (
     <div
       ref={popupRef}
-      className="absolute top-[60px] z-[90] w-[480px] max-w-[95vw] bg-[#1c1f24] border border-white/10 rounded-xl shadow-2xl overflow-hidden"
+      className="absolute top-[60px] z-[90] w-[480px] max-w-[95vw] bg-card border border-border-primary rounded-xl shadow-2xl overflow-hidden"
       style={{ left: anchorLeft }}
     >
       {/* Header */}
       <div className="px-4 pt-3 pb-2">
-        <span className="text-[11px] font-bold uppercase tracking-wider text-white/60">
+        <span className="text-[11px] font-bold uppercase tracking-wider text-text-tertiary">
           Instruments
         </span>
       </div>
@@ -199,27 +199,27 @@ export default function AddSymbolPopup({ open, onClose, onSelect, existingTabs, 
       {/* Search + category */}
       <div className="px-3 pb-3 grid grid-cols-[1fr_180px] gap-2">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-tertiary" />
           <input
             type="text"
             autoFocus
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search"
-            className="w-full pl-9 pr-3 py-2.5 text-[13px] rounded-lg border border-white/10 bg-[#0f1217] text-white placeholder:text-white/40 outline-none focus:border-white/30"
+            className="w-full pl-9 pr-3 py-2.5 text-[13px] rounded-lg border border-border-primary bg-bg-input text-text-primary placeholder:text-text-tertiary outline-none focus:border-warning"
           />
         </div>
         <div className="relative">
           <button
             type="button"
             onClick={() => setCatOpen((v) => !v)}
-            className="w-full h-full flex items-center justify-between px-3.5 py-2.5 rounded-lg border border-white/10 bg-[#0f1217] text-[13px] font-semibold text-white hover:bg-white/[0.04] transition-colors"
+            className="w-full h-full flex items-center justify-between px-3.5 py-2.5 rounded-lg border border-border-primary bg-bg-input text-[13px] font-semibold text-text-primary hover:bg-bg-hover transition-colors"
           >
             <span className="truncate">{currentLabel}</span>
-            <ChevronDown size={14} className={clsx('text-white/50 transition-transform', catOpen && 'rotate-180')} />
+            <ChevronDown size={14} className={clsx('text-text-tertiary transition-transform', catOpen && 'rotate-180')} />
           </button>
           {catOpen && (
-            <div className="absolute right-0 top-full mt-1 w-full bg-[#1c1f24] border border-white/10 rounded-lg py-1 z-10 shadow-xl">
+            <div className="absolute right-0 top-full mt-1 w-full bg-card border border-border-primary rounded-lg py-1 z-10 shadow-xl">
               {CATEGORIES.map((c) => (
                 <button
                   key={c.id}
@@ -229,8 +229,8 @@ export default function AddSymbolPopup({ open, onClose, onSelect, existingTabs, 
                     setCatOpen(false);
                   }}
                   className={clsx(
-                    'w-full text-left px-3 py-2 text-[13px] hover:bg-white/[0.05] transition-colors',
-                    c.id === category ? 'text-white font-semibold' : 'text-white/85',
+                    'w-full text-left px-3 py-2 text-[13px] hover:bg-bg-hover transition-colors',
+                    c.id === category ? 'text-text-primary font-semibold' : 'text-text-secondary',
                   )}
                 >
                   {c.label}
@@ -242,7 +242,7 @@ export default function AddSymbolPopup({ open, onClose, onSelect, existingTabs, 
       </div>
 
       {/* Table header */}
-      <div className="grid grid-cols-[20px_minmax(110px,1fr)_minmax(160px,1.4fr)_30px] gap-2 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-white/40 border-b border-white/5">
+      <div className="grid grid-cols-[20px_minmax(110px,1fr)_minmax(160px,1.4fr)_30px] gap-2 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-text-tertiary border-b border-border-primary">
         <div></div>
         <div>Symbol</div>
         <div>Description</div>
@@ -252,7 +252,7 @@ export default function AddSymbolPopup({ open, onClose, onSelect, existingTabs, 
       {/* Rows */}
       <div className="max-h-[420px] overflow-y-auto">
         {rows.length === 0 ? (
-          <div className="px-4 py-10 text-center text-[12px] text-white/40">
+          <div className="px-4 py-10 text-center text-[12px] text-text-tertiary">
             {search ? `No symbols match "${search}"` : 'No symbols in this category'}
           </div>
         ) : (
@@ -277,17 +277,17 @@ export default function AddSymbolPopup({ open, onClose, onSelect, existingTabs, 
                 className={clsx(
                   'w-full grid grid-cols-[20px_minmax(110px,1fr)_minmax(160px,1.4fr)_30px] gap-2 px-3 py-2.5 text-left items-center transition-colors',
                   isOpen
-                    ? 'bg-white/[0.03] text-white/40 cursor-not-allowed'
-                    : 'hover:bg-white/[0.05] text-white',
+                    ? 'bg-bg-secondary text-text-tertiary cursor-not-allowed'
+                    : 'hover:bg-bg-hover text-text-primary',
                 )}
               >
-                <GripVertical size={14} className="text-white/20" />
+                <GripVertical size={14} className="text-text-tertiary" />
                 <div className="flex items-center gap-2 min-w-0">
                   <SymbolIcon symbol={symbol} size={18} />
                   <span className="text-[13px] font-bold font-mono truncate">{symbol}</span>
-                  {isClosed && <Ban size={12} className="text-white/30 shrink-0" aria-label="Market closed" />}
+                  {isClosed && <Ban size={12} className="text-text-tertiary shrink-0" aria-label="Market closed" />}
                 </div>
-                <div className="text-[12.5px] text-white/70 truncate">{desc}</div>
+                <div className="text-[12.5px] text-text-secondary truncate">{desc}</div>
                 <span
                   role="button"
                   tabIndex={0}
@@ -295,7 +295,7 @@ export default function AddSymbolPopup({ open, onClose, onSelect, existingTabs, 
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') toggleStar(symbol, e as any); }}
                   className={clsx(
                     'shrink-0 transition-colors cursor-pointer text-center',
-                    isStarred ? 'text-[#ffc107]' : 'text-white/20 hover:text-white/50',
+                    isStarred ? 'text-warning' : 'text-text-tertiary hover:text-text-secondary',
                   )}
                   aria-label="Star"
                 >
