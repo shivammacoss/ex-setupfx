@@ -231,18 +231,39 @@ export default function OrderPanel() {
   };
 
   const triggerSide = (s: OrderSide) => {
+    // Hard-reset transient flags so a stuck `submitting` from a previous
+    // order (slow network, dropped response, double-click, etc.) doesn't
+    // disable the Confirm button on this fresh click. User must always be
+    // able to repeat Buy → Confirm → Buy → Confirm in sequence.
+    setSubmitting(false);
     setSide(s);
     if (formType === 'one-click') {
       void placeOrder(s);
     } else {
-      setConfirmingSide(s);
+      // Re-arm confirm even if it was already on this side — forces React
+      // to flush any pending state updates from the prior order cycle.
+      setConfirmingSide(null);
+      // Small microtask delay so React batches these as separate renders
+      // and the Confirm button is unmounted/remounted cleanly.
+      queueMicrotask(() => setConfirmingSide(s));
     }
   };
 
   const onConfirm = () => {
     if (!confirmingSide) return;
+    if (submitting) return; // guard against double-tap
     void placeOrder(confirmingSide);
   };
+
+  // Reset transient state whenever the user switches symbol — stale
+  // confirmingSide / submitting / SL/TP from the previous symbol must
+  // never leak into the new one.
+  useEffect(() => {
+    setConfirmingSide(null);
+    setSubmitting(false);
+    setSl('');
+    setTp('');
+  }, [selectedSymbol]);
 
   if (!selectedSymbol) {
     return (
