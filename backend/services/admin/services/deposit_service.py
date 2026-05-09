@@ -133,7 +133,12 @@ async def list_all_withdrawals(page: int, per_page: int, status: str | None, db:
 async def approve_deposit(
     deposit_id: uuid.UUID, admin_id: uuid.UUID, ip_address: str | None, db: AsyncSession,
 ) -> dict:
-    result = await db.execute(select(Deposit).where(Deposit.id == deposit_id))
+    # Row-level lock prevents two admins from approving the same deposit
+    # concurrently (would otherwise both pass the status check and double-credit
+    # balance + bonus).
+    result = await db.execute(
+        select(Deposit).where(Deposit.id == deposit_id).with_for_update()
+    )
     deposit = result.scalar_one_or_none()
     if not deposit:
         raise HTTPException(status_code=404, detail="Deposit not found")
@@ -144,7 +149,7 @@ async def approve_deposit(
     deposit.approved_by = admin_id
     deposit.approved_at = datetime.utcnow()
 
-    user_q = await db.execute(select(User).where(User.id == deposit.user_id))
+    user_q = await db.execute(select(User).where(User.id == deposit.user_id).with_for_update())
     user_row = user_q.scalar_one_or_none()
     if not user_row:
         raise HTTPException(status_code=400, detail="User not found for deposit")

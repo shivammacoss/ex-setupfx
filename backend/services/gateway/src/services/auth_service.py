@@ -266,6 +266,27 @@ async def register_user(
         if ib_profile:
             db.add(Referral(referrer_id=ib_profile.user_id, referred_id=user.id, ib_profile_id=ib_profile.id))
 
+            # Pre-create the new user's own IBProfile with parent_ib_id pointing to
+            # the referrer's profile. This wires the MLM chain so when this user
+            # later refers others, multi-level commission walks upward correctly.
+            # Without this, parent_ib_id stays NULL on the auto-vivified profile
+            # (created on first /business/status hit) and L2+ never earns.
+            import secrets, string
+            alphabet = string.ascii_uppercase + string.digits
+            new_code = ''.join(secrets.choice(alphabet) for _ in range(6))
+            for _ in range(6):
+                exists = await db.execute(select(IBProfile.id).where(IBProfile.referral_code == new_code))
+                if exists.first() is None:
+                    break
+                new_code = ''.join(secrets.choice(alphabet) for _ in range(6))
+            db.add(IBProfile(
+                user_id=user.id,
+                referral_code=new_code,
+                parent_ib_id=ib_profile.id,
+                level=1,
+                is_active=True,
+            ))
+
     return await issue_auth_json_response(user, request, db, status_code=201, user_audit_action="REGISTER")
 
 

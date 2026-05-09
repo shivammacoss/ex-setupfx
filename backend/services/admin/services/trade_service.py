@@ -401,7 +401,7 @@ async def close_position(
         swap=pos.swap or Decimal("0"),
         commission=pos.commission or Decimal("0"),
         profit=profit,
-        close_reason="manual",
+        close_reason="admin",
         opened_at=pos.created_at,
         closed_at=datetime.utcnow(),
     )
