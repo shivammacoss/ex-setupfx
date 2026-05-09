@@ -81,8 +81,8 @@ export default function TerminalTopBar({ chartTabs, onSelectTab, onCloseTab, onA
         className="flex items-center px-4 sm:px-5 select-none"
       >
         <span className="text-[22px] font-bold tracking-tight">
-          <span className="text-[#ffe600]">Fx</span>
-          <span className="text-text-primary">artha</span>
+          <span className="text-[#ffe600]">Stock</span>
+          <span className="text-text-primary">Pip</span>
         </span>
       </Link>
 
