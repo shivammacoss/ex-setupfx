@@ -293,7 +293,7 @@ export default function ProfilePage() {
                   >
                     <Icon size={16} className="shrink-0 opacity-90" />
                     {active ? (
-                      <span className="hidden xs:inline relative animate-wallet-main-tab-text drop-shadow-[0_0_16px_rgba(0,208,72,0.6)] truncate">
+                      <span className="hidden xs:inline relative animate-wallet-main-tab-text drop-shadow-[0_0_16px_rgba(255,230,0,0.6)] truncate">
                         {t.label}
                       </span>
                     ) : (

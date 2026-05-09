@@ -53,10 +53,10 @@ const config: Config = {
           bg: 'rgba(239,68,68,0.1)',
           glow: 'rgba(239,68,68,0.2)',
         },
-        accent: { DEFAULT: '#00d048', light: '#3de883', dark: '#00a839' },
+        accent: { DEFAULT: '#ffe600', light: '#fff069', dark: '#c69f00' },
         success: '#00a839',
         warning: '#FFB300',
-        info: '#00d048',
+        info: '#ffe600',
         danger: '#FF1744',
         rainbow: {
           red: '#FF6B6B',
@@ -197,22 +197,22 @@ const config: Config = {
         walletNeonTabGlow: {
           '0%, 100%': {
             boxShadow:
-              '0 -1px 20px rgba(0, 208, 72, 0.22), 0 0 32px rgba(0, 208, 72, 0.12), inset 0 0 24px rgba(0, 208, 72, 0.04)',
+              '0 -1px 20px rgba(255, 230, 0, 0.22), 0 0 32px rgba(255, 230, 0, 0.12), inset 0 0 24px rgba(255, 230, 0, 0.04)',
           },
           '50%': {
             boxShadow:
-              '0 -1px 36px rgba(0, 208, 72, 0.45), 0 0 52px rgba(0, 208, 72, 0.22), inset 0 0 32px rgba(0, 208, 72, 0.08)',
+              '0 -1px 36px rgba(255, 230, 0, 0.45), 0 0 52px rgba(255, 230, 0, 0.22), inset 0 0 32px rgba(255, 230, 0, 0.08)',
           },
         },
         /** Deposit / Withdraw main tabs — stronger pulsing glow */
         walletMainTabGlow: {
           '0%, 100%': {
             boxShadow:
-              '0 -6px 40px rgba(0, 208, 72, 0.38), 0 0 56px rgba(0, 208, 72, 0.2), inset 0 1px 0 rgba(0, 208, 72, 0.14)',
+              '0 -6px 40px rgba(255, 230, 0, 0.38), 0 0 56px rgba(255, 230, 0, 0.2), inset 0 1px 0 rgba(255, 230, 0, 0.14)',
           },
           '50%': {
             boxShadow:
-              '0 -10px 64px rgba(0, 208, 72, 0.62), 0 0 88px rgba(0, 208, 72, 0.32), inset 0 1px 0 rgba(0, 208, 72, 0.22)',
+              '0 -10px 64px rgba(255, 230, 0, 0.62), 0 0 88px rgba(255, 230, 0, 0.32), inset 0 1px 0 rgba(255, 230, 0, 0.22)',
           },
         },
         walletMainTabText: {
