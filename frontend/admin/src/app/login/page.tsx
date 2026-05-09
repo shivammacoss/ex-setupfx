@@ -173,7 +173,7 @@ export default function LoginPage() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="admin@fxartha.com"
+                    placeholder="admin@stockpip.com"
                     required
                     autoComplete="email"
                     className="w-full pl-10 pr-3 py-2.5 text-sm bg-bg-input border border-border-primary rounded-lg focus:border-buy transition-fast"

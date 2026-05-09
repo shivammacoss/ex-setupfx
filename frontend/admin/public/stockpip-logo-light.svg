@@ -1,13 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 48" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 56" fill="none">
   <defs>
-    <linearGradient id="sp-logo-l-g" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+    <linearGradient id="sp-l-bg" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#FFD24A"/>
+      <stop offset="0.55" stop-color="#F5B800"/>
       <stop offset="1" stop-color="#C68A00"/>
     </linearGradient>
+    <linearGradient id="sp-l-line" x1="0" y1="56" x2="56" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1a1209"/>
+      <stop offset="1" stop-color="#3a280f"/>
+    </linearGradient>
   </defs>
-  <rect width="48" height="48" rx="12" fill="url(#sp-logo-l-g)"/>
-  <text x="14" y="32" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="800" fill="#1a1209" letter-spacing="-1">S</text>
-  <text x="32" y="32" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="800" fill="#1a1209" letter-spacing="-1">P</text>
-  <path d="M38 14 L41 11 M41 11 L41 14 M41 11 L38 11" stroke="#1a1209" stroke-width="1.6" stroke-linecap="round" fill="none"/>
-  <text x="60" y="32" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="700" fill="#FFFFFF" letter-spacing="-0.5">StockPip</text>
+  <rect width="56" height="56" rx="14" fill="url(#sp-l-bg)"/>
+  <rect x="0.5" y="0.5" width="55" height="55" rx="13.5" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+  <path d="M19 16 Q14 16 14 21 Q14 26 22 27 Q30 28 30 33 Q30 38 24 38 Q18 38 16 34"
+        stroke="url(#sp-l-line)" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+  <path d="M34 16 L34 40" stroke="url(#sp-l-line)" stroke-width="3.2" stroke-linecap="round"/>
+  <path d="M34 16 Q43 16 43 22 Q43 28 34 28" stroke="url(#sp-l-line)" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+  <path d="M40 44 L44 40 L48 42" stroke="#1a1209" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="48" cy="42" r="1.6" fill="#1a1209"/>
+
+  <!-- Wordmark — "Stock" in white, "Pip" in gold accent for emphasis -->
+  <text x="68" y="38" font-family="Inter, system-ui, sans-serif" font-size="26" font-weight="700" letter-spacing="-0.6" fill="#FFFFFF">Stock</text>
+  <text x="143" y="38" font-family="Inter, system-ui, sans-serif" font-size="26" font-weight="800" letter-spacing="-0.6" fill="#F5B800">Pip</text>
 </svg>
