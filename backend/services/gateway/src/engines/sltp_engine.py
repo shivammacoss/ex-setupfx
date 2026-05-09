@@ -129,9 +129,15 @@ class SLTPEngine:
                         close_price = Decimal(str(pos.stop_loss))
                     else:
                         close_price = Decimal(str(pos.take_profit))
-                    await self._close_position(db, pos, close_price, triggered)
-
-            await db.commit()
+                    try:
+                        await self._close_position(db, pos, close_price, triggered)
+                        await db.commit()
+                    except Exception as exc:
+                        logger.error(
+                            "SL/TP close failed for pos=%s reason=%s: %s",
+                            pos.id, triggered, exc,
+                        )
+                        await db.rollback()
 
     async def _close_position(
         self, db: AsyncSession, pos: Position, close_price: Decimal, reason: str
@@ -205,14 +211,17 @@ class SLTPEngine:
         reason_label = "Stop Loss" if reason == "sl" else "Take Profit"
 
         if account:
-            await create_notification(
-                db, account.user_id,
-                title=f"{reason_label} Hit — {symbol}",
-                message=f"{side.upper()} {pos.lots} lots closed @ {close_price} | P&L: {pnl_str}",
-                notif_type="trade",
-                action_url="/trading",
-                commit=False,
-            )
+            try:
+                await create_notification(
+                    db, account.user_id,
+                    title=f"{reason_label} Hit — {symbol}",
+                    message=f"{side.upper()} {pos.lots} lots closed @ {close_price} | P&L: {pnl_str}",
+                    notif_type="trade",
+                    action_url="/trading",
+                    commit=False,
+                )
+            except Exception as exc:
+                logger.warning("SL/TP notify failed (close still persists): %s", exc)
 
         logger.info(
             "%s triggered: %s %s %s lots @ %s → P&L: %s",

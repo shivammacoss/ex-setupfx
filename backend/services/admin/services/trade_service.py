@@ -177,6 +177,37 @@ async def list_orders(
 
 
 async def list_trade_history(page: int, per_page: int, db: AsyncSession):
+    # Lazy backfill: relabel still-'manual' history rows whose close_price
+    # crossed the position's SL/TP — same logic the trader endpoint uses, so
+    # admin sees the correct SL/TP badges instead of everything as 'Manual'.
+    from sqlalchemy import text
+    try:
+        await db.execute(
+            text(
+                """
+                UPDATE trade_history th
+                SET close_reason = CASE
+                    WHEN p.stop_loss IS NOT NULL AND (
+                        (LOWER(CAST(p.side AS TEXT)) = 'buy'  AND th.close_price <= p.stop_loss)
+                     OR (LOWER(CAST(p.side AS TEXT)) = 'sell' AND th.close_price >= p.stop_loss)
+                    ) THEN 'sl'
+                    WHEN p.take_profit IS NOT NULL AND (
+                        (LOWER(CAST(p.side AS TEXT)) = 'buy'  AND th.close_price >= p.take_profit)
+                     OR (LOWER(CAST(p.side AS TEXT)) = 'sell' AND th.close_price <= p.take_profit)
+                    ) THEN 'tp'
+                    ELSE th.close_reason
+                END
+                FROM positions p
+                WHERE th.position_id = p.id
+                  AND COALESCE(th.close_reason, 'manual') IN ('manual', 'copy_close', 'copy')
+                  AND (p.stop_loss IS NOT NULL OR p.take_profit IS NOT NULL)
+                """
+            )
+        )
+        await db.commit()
+    except Exception:
+        await db.rollback()
+
     query = (
         select(TradeHistory)
         .join(TradingAccount, TradeHistory.account_id == TradingAccount.id)

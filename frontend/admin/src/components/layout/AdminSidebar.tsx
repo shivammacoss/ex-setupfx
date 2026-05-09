@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { adminApi } from '@/lib/api';
 import {
   LayoutDashboard, Users, CandlestickChart, Wallet, Landmark,
-  Settings, Sliders, BarChart3, Gift, Image, HeadphonesIcon,
+  Settings, Sliders, BarChart3, Gift, HeadphonesIcon,
   UserCog, ChevronDown, ChevronRight, Network, Share2,
   DollarSign, Percent, ArrowLeftRight, PanelLeftClose, PanelLeft,
   Receipt, Layers, ShieldCheck, ScrollText, BookOpen, LineChart,
@@ -61,7 +61,6 @@ const NAV_ITEMS: NavItem[] = [
   { label: 'Analyst Views', href: '/analyst-views', icon: LineChart, perm: 'analytics.view' },
   { label: 'Audit logs', href: '/audit-logs', icon: ScrollText, perm: 'audit_logs.view' },
   { label: 'Bonus', href: '/bonus', icon: Gift, perm: 'bonus.view' },
-  { label: 'Banners', href: '/banners', icon: Image, perm: 'banners.view' },
   { label: 'Support', href: '/support', icon: HeadphonesIcon, perm: 'tickets.view' },
   { label: 'Employees', href: '/employees', icon: UserCog, perm: '_super_admin' },
   { label: 'Settings', href: '/settings', icon: Settings, perm: '_super_admin' },
