@@ -99,8 +99,8 @@ const Navbar = () => {
 
             {/* Logo */}
             <Link href="/" className="flex items-center flex-shrink-0 group">
-              <img src="/images/ex-setup-logo-light.svg" alt="EX-Setup" className="logo-dark-mode h-12 w-auto object-contain transition-all duration-300 group-hover:drop-shadow-[0_0_12px_rgba(0,208,72,0.6)]" />
-            <img src="/images/ex-setup-logo-on-light.svg" alt="EX-Setup" className="logo-light-mode h-12 w-auto object-contain transition-all duration-300 group-hover:drop-shadow-[0_0_12px_rgba(0,208,72,0.6)]" />
+              <img src="/images/stockpip-logo-light.svg" alt="StockPip" className="logo-dark-mode h-12 w-auto object-contain transition-all duration-300 group-hover:drop-shadow-[0_0_12px_rgba(0,208,72,0.6)]" />
+            <img src="/images/stockpip-logo-on-light.svg" alt="StockPip" className="logo-light-mode h-12 w-auto object-contain transition-all duration-300 group-hover:drop-shadow-[0_0_12px_rgba(0,208,72,0.6)]" />
             </Link>
 
             {/* Desktop Navigation */}
@@ -318,7 +318,7 @@ const Navbar = () => {
               </div>
               <div>
                 <h2 className="text-2xl font-bold text-white">Welcome back</h2>
-                <p className="text-text-secondary text-sm">Login to your EX-Setup account</p>
+                <p className="text-text-secondary text-sm">Login to your StockPip account</p>
               </div>
             </div>
 

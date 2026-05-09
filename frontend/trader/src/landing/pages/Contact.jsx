@@ -15,7 +15,7 @@ const Contact = () => {
   const [isChatOpen, setIsChatOpen] = useState(false)
   const [chatInput, setChatInput] = useState('')
   const [messages, setMessages] = useState([
-    { from: 'agent', text: 'Hi there! 👋 I\'m Sarah from EX-Setup Support. How can I help you today?', time: 'now' }
+    { from: 'agent', text: 'Hi there! 👋 I\'m Sarah from StockPip Support. How can I help you today?', time: 'now' }
   ])
   const chatEndRef = useRef(null)
 
@@ -175,7 +175,7 @@ const Contact = () => {
               <div>
                 <h2 className="text-3xl font-bold text-white mb-6">Our Office</h2>
                 <Card className="p-8 mb-6">
-                  <h3 className="text-xl font-semibold text-white mb-4">EX-Setup Ltd</h3>
+                  <h3 className="text-xl font-semibold text-white mb-4">StockPip Ltd</h3>
                   <p className="text-text-secondary mb-4">
                     123 Financial District<br />
                     London, EC2N 2DL<br />

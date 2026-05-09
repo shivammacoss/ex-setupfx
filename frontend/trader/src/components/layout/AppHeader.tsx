@@ -46,7 +46,7 @@ export default function AppHeader() {
 
   return (
     <header className="h-[60px] flex items-center justify-between px-3 sm:px-6 bg-bg-primary border-b border-border-primary shrink-0">
-      {/* LEFT — mobile menu toggle + EX-Setup brand (always visible across the full top bar) */}
+      {/* LEFT — mobile menu toggle + StockPip brand (always visible across the full top bar) */}
       <div className="flex items-center gap-3 min-w-0">
         <button
           type="button"
@@ -57,7 +57,7 @@ export default function AppHeader() {
           <Menu size={20} strokeWidth={1.85} />
         </button>
         <Link href="/accounts" className="flex items-center select-none">
-          <span className="font-bold tracking-tight text-text-primary text-[22px]">EX-Setup</span>
+          <span className="font-bold tracking-tight text-text-primary text-[22px]">StockPip</span>
         </Link>
       </div>
 

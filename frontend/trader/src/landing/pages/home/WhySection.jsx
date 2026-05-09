@@ -8,8 +8,8 @@ export default function WhySection() {
       <div className="container-custom relative z-10">
         <SectionHeader
           badge="Why Choose Us"
-          title="Why Choose EX-Setup"
-          highlight="EX-Setup"
+          title="Why Choose StockPip"
+          highlight="StockPip"
           subtitle="We combine institutional-grade technology with trader-friendly conditions to give you the edge in global markets."
         />
 

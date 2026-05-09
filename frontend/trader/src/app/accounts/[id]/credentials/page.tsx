@@ -161,7 +161,7 @@ export default function AccountCredentialsPage() {
                 </div>
                 <div>
                   <p className="text-text-tertiary">Platform</p>
-                  <p className="text-text-primary font-semibold mt-0.5">EX-Setup Trading</p>
+                  <p className="text-text-primary font-semibold mt-0.5">StockPip Trading</p>
                 </div>
                 <div>
                   <p className="text-text-tertiary">Currency</p>

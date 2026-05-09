@@ -5,7 +5,7 @@
  * - Other instruments: Synthetic candles anchored to current live price
  * - Live updates: builds bars from Zustand price ticks (WebSocket fed)
  *
- * EX-Setup datafeed — fast, no backend bar dependency.
+ * StockPip datafeed — fast, no backend bar dependency.
  */
 import type {
   Bar,
@@ -175,7 +175,7 @@ const CONFIG: DatafeedConfiguration = {
   supported_resolutions: SUPPORTED_RESOLUTIONS,
   exchanges: [
     { value: '', name: 'All', desc: 'All exchanges' },
-    { value: 'EX-Setup', name: 'EX-Setup', desc: 'EX-Setup' },
+    { value: 'StockPip', name: 'StockPip', desc: 'StockPip' },
   ],
   symbols_types: [
     { name: 'All', value: '' },
@@ -237,7 +237,7 @@ export const pipHighDatafeed: IBasicDataFeed = {
       .map((i) => ({
         symbol: i.symbol, full_name: i.symbol,
         description: i.display_name || i.symbol,
-        exchange: 'EX-Setup', ticker: i.symbol,
+        exchange: 'StockPip', ticker: i.symbol,
         type: segmentToSymbolType(i.segment) || 'forex',
       }));
     onResult(result);
@@ -253,7 +253,7 @@ export const pipHighDatafeed: IBasicDataFeed = {
       description: inst?.display_name || sym,
       type: segmentToSymbolType(inst?.segment) || 'forex',
       session: '24x7', timezone: 'Etc/UTC',
-      exchange: 'EX-Setup', listed_exchange: 'EX-Setup',
+      exchange: 'StockPip', listed_exchange: 'StockPip',
       format: 'price', pricescale: Math.pow(10, digits), minmov: 1,
       has_intraday: true, has_daily: true, has_weekly_and_monthly: false,
       supported_resolutions: SUPPORTED_RESOLUTIONS,

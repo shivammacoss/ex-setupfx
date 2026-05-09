@@ -39,7 +39,7 @@ const Blog = () => {
       title: 'Getting Started with Copy Trading',
       category: 'Platforms',
       date: 'March 5, 2025',
-      excerpt: 'Learn how to follow expert traders and automatically replicate their strategies on EX-Setup.',
+      excerpt: 'Learn how to follow expert traders and automatically replicate their strategies on StockPip.',
       image: '💻'
     },
     {

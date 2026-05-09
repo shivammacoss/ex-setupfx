@@ -12,8 +12,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'EX-Setup Admin',
-  description: 'EX-Setup broker administration panel',
+  title: 'StockPip Admin',
+  description: 'StockPip broker administration panel',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

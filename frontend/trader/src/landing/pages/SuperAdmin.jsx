@@ -50,7 +50,7 @@ const SuperAdmin = () => {
                 Super Admin Panel
               </h1>
               <p className="text-xl text-text-secondary max-w-2xl mx-auto">
-                Manage and monitor all EX-Setup operations from one central dashboard.
+                Manage and monitor all StockPip operations from one central dashboard.
               </p>
             </div>
           </ScrollReveal>

@@ -493,7 +493,7 @@ export default function TradingOverview({ data }: { data?: TradingDashboardData 
           <div className="rounded-xl p-4 border" style={{ backgroundColor: CARD, borderColor: BORDER }}>
             <div className="flex items-center gap-2 text-sm font-semibold mb-2">
               <Activity className="w-4 h-4 text-orange-400" />
-              EX-Setup score
+              StockPip score
             </div>
             <ScoreDonut score={d.piphighScore} />
             <p className="text-[10px] text-text-tertiary text-center mt-3 leading-relaxed">

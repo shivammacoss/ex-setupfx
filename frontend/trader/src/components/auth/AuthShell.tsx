@@ -16,8 +16,8 @@ export default function AuthShell({ children }: { children: React.ReactNode }) {
       {/* Header */}
       <header className="h-[60px] flex items-center justify-between px-4 sm:px-8 border-b border-gray-200 bg-white shrink-0">
         <Link href="/" className="flex items-center gap-2">
-          <img src="/images/ex-setup-mark.svg" alt="EX-Setup" className="w-7 h-7 object-contain" />
-          <span className="font-bold tracking-tight text-xl text-[#111827]">EX-Setup</span>
+          <img src="/images/stockpip-mark.svg" alt="StockPip" className="w-7 h-7 object-contain" />
+          <span className="font-bold tracking-tight text-xl text-[#111827]">StockPip</span>
         </Link>
         <button
           type="button"
@@ -38,16 +38,16 @@ export default function AuthShell({ children }: { children: React.ReactNode }) {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 text-[13px] text-gray-600">
           <div className="space-y-3 max-w-3xl leading-relaxed">
             <p>
-              EX-Setup Limited is registered and regulated by the relevant Financial Services Commission. The
+              StockPip Limited is registered and regulated by the relevant Financial Services Commission. The
               registered office details are available upon request.
             </p>
-            <p>This website is operated by EX-Setup Limited.</p>
-            <p>The entity above is duly authorized to operate under the EX-Setup brand and trademarks.</p>
+            <p>This website is operated by StockPip Limited.</p>
+            <p>The entity above is duly authorized to operate under the StockPip brand and trademarks.</p>
             <p>
               Risk Warning: Online Forex/CFDs are complex instruments and come with a high risk of losing
               money rapidly due to leverage. You should consider whether you understand how CFDs work and
               whether you can afford to take the high risk of losing your money. Under no circumstances
-              shall EX-Setup have any liability to any person or entity for any loss or damage in whole or
+              shall StockPip have any liability to any person or entity for any loss or damage in whole or
               part caused by, resulting from, or relating to any financial activity.{' '}
               <Link href="/risk" className="text-[#1a6dff] hover:underline">Learn more</Link>
             </p>
@@ -56,7 +56,7 @@ export default function AuthShell({ children }: { children: React.ReactNode }) {
               solicitation to engage in any investment activity.
             </p>
             <p>
-              The information on this website may only be copied with the express written permission of EX-Setup.
+              The information on this website may only be copied with the express written permission of StockPip.
             </p>
           </div>
 
@@ -67,7 +67,7 @@ export default function AuthShell({ children }: { children: React.ReactNode }) {
             <li><Link href="/terms" className="hover:underline">Security instructions</Link></li>
             <li><Link href="/terms" className="hover:underline">Legal documents</Link></li>
             <li><Link href="/support" className="hover:underline">Complaints Handling Policy</Link></li>
-            <li className="pt-3 text-gray-500 hover:no-underline">© {new Date().getFullYear()} EX-Setup</li>
+            <li className="pt-3 text-gray-500 hover:no-underline">© {new Date().getFullYear()} StockPip</li>
           </ul>
         </div>
       </footer>

@@ -89,7 +89,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="EX-Setup Gateway",
+    title="StockPip Gateway",
     version="1.0.0",
     description="Forex CFD B-Book Trading Platform API",
     lifespan=lifespan,

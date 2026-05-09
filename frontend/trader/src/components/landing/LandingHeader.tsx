@@ -9,8 +9,8 @@ export default function LandingHeader() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center shrink-0">
-            <img src="/images/ex-setup-logo-light.svg" alt="EX-Setup" className="logo-dark-mode h-9 sm:h-10 w-auto object-contain" />
-            <img src="/images/ex-setup-logo-on-light.svg" alt="EX-Setup" className="logo-light-mode h-9 sm:h-10 w-auto object-contain" />
+            <img src="/images/stockpip-logo-light.svg" alt="StockPip" className="logo-dark-mode h-9 sm:h-10 w-auto object-contain" />
+            <img src="/images/stockpip-logo-on-light.svg" alt="StockPip" className="logo-light-mode h-9 sm:h-10 w-auto object-contain" />
           </Link>
 
           <nav className="hidden md:flex items-center gap-7">

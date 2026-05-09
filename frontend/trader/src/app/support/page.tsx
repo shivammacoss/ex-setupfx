@@ -358,7 +358,7 @@ export default function SupportPage() {
         {/* Legal footer */}
         <div className="mt-12 pt-8 border-t border-border-primary grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 text-xs text-text-tertiary">
           <p className="leading-relaxed max-w-3xl">
-            The information on this website may only be copied with the express written permission of EX-Setup.
+            The information on this website may only be copied with the express written permission of StockPip.
             General Risk Warning: CFDs are leveraged products. Trading in CFDs carries a high level of risk
             thus may not be appropriate for all investors. The investment value can both increase and decrease
             and the investors may lose all their invested capital.

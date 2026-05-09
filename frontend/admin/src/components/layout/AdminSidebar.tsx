@@ -110,13 +110,13 @@ export default function AdminSidebar() {
       <div className="flex items-center h-14 px-3 border-b border-border-primary/40">
         {collapsed ? (
           <span className="mx-auto">
-            <img src="/ex-setup-mark.svg" alt="EX-Setup" className="w-7 h-7 rounded-md" />
+            <img src="/stockpip-mark.svg" alt="StockPip" className="w-7 h-7 rounded-md" />
           </span>
         ) : (
           <Link href="/" className="flex items-center gap-2 min-w-0">
-            <img src="/ex-setup-mark.svg" alt="EX-Setup" className="w-7 h-7 rounded-md shrink-0" />
+            <img src="/stockpip-mark.svg" alt="StockPip" className="w-7 h-7 rounded-md shrink-0" />
             <span className="font-bold tracking-tight text-sm select-none text-text-primary">
-              EX-Setup
+              StockPip
             </span>
           </Link>
         )}

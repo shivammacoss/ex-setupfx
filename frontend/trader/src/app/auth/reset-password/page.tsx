@@ -49,8 +49,8 @@ function ResetPasswordForm() {
     <div className="auth-page min-h-screen relative overflow-hidden bg-bg-primary flex flex-col items-center justify-center px-6 py-10">
       <div className="w-full max-w-[400px]">
         <div className="mb-8 flex justify-center">
-          <img src="/images/ex-setup-mark.svg" alt="EX-Setup" className="logo-dark-mode w-20 h-20 object-contain" />
-                      <img src="/images/ex-setup-mark.svg" alt="EX-Setup" className="logo-light-mode w-20 h-20 object-contain" />
+          <img src="/images/stockpip-mark.svg" alt="StockPip" className="logo-dark-mode w-20 h-20 object-contain" />
+                      <img src="/images/stockpip-mark.svg" alt="StockPip" className="logo-light-mode w-20 h-20 object-contain" />
         </div>
         <div className="glass-panel rounded-3xl p-8 noise-texture overflow-hidden">
           <h1 className="text-xl font-bold text-text-primary mb-2">Reset password</h1>

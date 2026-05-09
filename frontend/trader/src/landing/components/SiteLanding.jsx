@@ -428,7 +428,7 @@ export default function SiteLanding() {
       <header id="navbar" className={navScrolled ? 'scrolled' : ''}>
         <div className="nav-inner">
           <a href="#home" className="nav-brand" onClick={(e) => scrollToSection(e, 'home')}>
-            <img src="/images/ex-setup-logo-light.svg" alt="EX-Setup" style={{ height: '30px', width: 'auto' }} />
+            <img src="/images/stockpip-logo-light.svg" alt="StockPip" style={{ height: '30px', width: 'auto' }} />
           </a>
           <ul className="nav-links">
             <li><a href="#home" className="active" onClick={(e) => scrollToSection(e, 'home')}>Home</a></li>
@@ -481,7 +481,7 @@ export default function SiteLanding() {
         />
         <div className="hero-glitch-content">
           <div className="hero-glitch-lines">
-            <h1 className="text-glitch" data-text="EX-SETUP" data-hover="EX-SETUP" data-delay="0">EX-SETUP</h1>
+            <h1 className="text-glitch" data-text="STOCKPIP" data-hover="STOCKPIP" data-delay="0">STOCKPIP</h1>
             <h1 className="text-glitch" data-text="PROVIDES LEGAL &" data-hover="GLOBAL SUPPORT" data-delay="0.15">PROVIDES LEGAL &amp;</h1>
             <h1 className="text-glitch" data-text="TECH SUPPORT IN" data-hover="INFRASTRUCTURE" data-delay="0.3">TECH SUPPORT IN</h1>
             <h1 className="text-glitch" data-text="GLOBAL MARKET" data-hover="WORLD CLASS" data-delay="0.45">GLOBAL MARKET</h1>
@@ -719,14 +719,14 @@ export default function SiteLanding() {
         </div>
       </section>
 
-      {/* ---- WHY EX-SETUP ---- */}
+      {/* ---- WHY STOCKPIP ---- */}
       <section className="section section-alt" id="about">
         <div className="container">
           <div className="why-grid reveal">
             <div className="why-left">
-              <div className="sec-label">Why EX-Setup</div>
+              <div className="sec-label">Why StockPip</div>
               <div className="sec-title">Your Partner for Software &amp; Digital Growth</div>
-              <p className="sec-sub" style={{ marginTop: '16px' }}>EX-Setup is a global software development and digital marketing company helping businesses build, scale, and grow in the digital world. We combine cutting-edge technology with data-driven marketing strategies to deliver measurable results.</p>
+              <p className="sec-sub" style={{ marginTop: '16px' }}>StockPip is a global software development and digital marketing company helping businesses build, scale, and grow in the digital world. We combine cutting-edge technology with data-driven marketing strategies to deliver measurable results.</p>
               <p className="sec-sub" style={{ marginTop: '12px' }}>From custom web and mobile applications to CRM systems and full-funnel digital marketing, we provide end-to-end solutions that transform how businesses operate and connect with their customers.</p>
               <div className="why-mission-vision">
                 <div className="mv-card">
@@ -766,7 +766,7 @@ export default function SiteLanding() {
         <div className="container">
           <div className="sec-header-centered">
             <div className="sec-label reveal">Why Choose Us</div>
-            <div className="sec-title reveal">Why Businesses Trust EX-Setup</div>
+            <div className="sec-title reveal">Why Businesses Trust StockPip</div>
             <p className="sec-sub reveal">We combine technical excellence with strategic thinking to deliver solutions that truly make a difference.</p>
           </div>
           <div className="choose-grid reveal">
@@ -874,17 +874,17 @@ export default function SiteLanding() {
           <div className="testimonials-track">
             {[
               {
-                quote: '"EX-Setup built our entire e-commerce platform from scratch. The team delivered ahead of schedule, and our online revenue has grown 3x since launch. Their technical expertise and communication are outstanding."',
+                quote: '"StockPip built our entire e-commerce platform from scratch. The team delivered ahead of schedule, and our online revenue has grown 3x since launch. Their technical expertise and communication are outstanding."',
                 name: 'Sarah Mitchell',
                 role: 'CEO \u2014 Fashion Forward \u00B7 E-Commerce \u00B7 United States',
               },
               {
-                quote: '"We hired EX-Setup for SEO and paid advertising. Within 6 months, our organic traffic increased by 280% and our cost per acquisition dropped by 40%. They truly understand digital growth."',
+                quote: '"We hired StockPip for SEO and paid advertising. Within 6 months, our organic traffic increased by 280% and our cost per acquisition dropped by 40%. They truly understand digital growth."',
                 name: 'James Chen',
                 role: 'Marketing Director \u2014 SaaS Company \u00B7 Singapore',
               },
               {
-                quote: '"The mobile app they developed for us has a 4.9-star rating with over 50K downloads. EX-Setup didn\'t just build an app \u2014 they built a product that our users love. Highly recommended."',
+                quote: '"The mobile app they developed for us has a 4.9-star rating with over 50K downloads. StockPip didn\'t just build an app \u2014 they built a product that our users love. Highly recommended."',
                 name: 'Priya Sharma',
                 role: 'Founder & CTO \u2014 Health & Fitness \u00B7 India',
               },
@@ -927,8 +927,8 @@ export default function SiteLanding() {
         <div className="container">
           <div className="footer-grid">
             <div className="footer-col">
-              <div className="footer-brand-name">EX-Setup</div>
-              <div className="footer-brand-sub">EX-Setup Trading Solutions</div>
+              <div className="footer-brand-name">StockPip</div>
+              <div className="footer-brand-sub">StockPip Trading Solutions</div>
               <p className="footer-desc">Global software development and digital marketing company powering brokerages and businesses worldwide.</p>
               <div className="footer-contact-item">
                 <i className="fa-solid fa-envelope" style={{ marginTop: '2px', color: 'rgba(255,255,255,0.2)' }}></i>
@@ -971,7 +971,7 @@ export default function SiteLanding() {
             </div>
           </div>
           <div className="footer-bottom">
-            <div className="footer-copy">&copy; 2026 EX-Setup. All rights reserved.</div>
+            <div className="footer-copy">&copy; 2026 StockPip. All rights reserved.</div>
             <div className="footer-legal">
               <a href="/privacy-policy">Privacy</a>
               <a href="/terms">Terms</a>

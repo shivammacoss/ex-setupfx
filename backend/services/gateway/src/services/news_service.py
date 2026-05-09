@@ -163,7 +163,7 @@ def _parse_rss(xml_bytes: bytes, source: str) -> List[Dict[str, Any]]:
 async def _fetch_one(client: httpx.AsyncClient, name: str, url: str) -> List[Dict[str, Any]]:
     try:
         r = await client.get(url, timeout=8.0, headers={
-            "User-Agent": "Mozilla/5.0 (compatible; EX-Setup-NewsBot/1.0)",
+            "User-Agent": "Mozilla/5.0 (compatible; StockPip-NewsBot/1.0)",
             "Accept": "application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.8",
         })
         if r.status_code != 200 or not r.content:

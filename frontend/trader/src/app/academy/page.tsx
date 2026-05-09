@@ -36,7 +36,7 @@ export default function AcademyPage() {
             ● CURRICULUM
           </div>
           <h1 className="text-3xl font-light text-text-primary tracking-wider mb-1">
-            EX-Setup <span className="font-bold italic">FOREX</span> ACADEMY
+            StockPip <span className="font-bold italic">FOREX</span> ACADEMY
           </h1>
           <p className="text-[#00d048] text-sm tracking-widest uppercase">MASTER FOREX TRADING FROM BEGINNER TO PROFESSIONAL</p>
 
@@ -137,7 +137,7 @@ export default function AcademyPage() {
         </div>
 
         <div className="flex items-center justify-between mt-8 text-[10px] uppercase tracking-widest text-text-tertiary">
-          <span>EX-Setup FOREX ACADEMY</span>
+          <span>StockPip FOREX ACADEMY</span>
           <span>8 PHASES · 44 MODULES</span>
         </div>
       </div>

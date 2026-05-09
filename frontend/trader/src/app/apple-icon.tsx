@@ -15,12 +15,12 @@ export default function AppleIcon() {
           justifyContent: 'center',
           background: 'linear-gradient(135deg, #FFD24A 0%, #C68A00 100%)',
           color: '#1a1209',
-          fontSize: 92,
+          fontSize: 80,
           fontWeight: 800,
           letterSpacing: -4,
         }}
       >
-        EX
+        SP
       </div>
     ),
     size,

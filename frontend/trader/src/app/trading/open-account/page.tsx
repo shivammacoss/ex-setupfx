@@ -474,7 +474,7 @@ function OpenAccountPageInner() {
                 </div>
                 <div>
                   <p className="text-text-tertiary">Platform</p>
-                  <p className="text-text-primary font-semibold mt-0.5">EX-Setup Trading</p>
+                  <p className="text-text-primary font-semibold mt-0.5">StockPip Trading</p>
                 </div>
                 <div>
                   <p className="text-text-tertiary">Currency</p>
@@ -571,7 +571,7 @@ function Select({
 function PlatformSelect({ value, onChange }: { value: Platform; onChange: (v: Platform) => void }) {
   const [open, setOpen] = useState(false);
   const items: { id: Platform; title: string; desc: string; comingSoon?: boolean }[] = [
-    { id: 'exsetup', title: 'EX-Setup Trading', desc: 'Great for all traders. Simple, intuitive, and built for the EX-Setup Terminal.' },
+    { id: 'exsetup', title: 'StockPip Trading', desc: 'Great for all traders. Simple, intuitive, and built for the StockPip Terminal.' },
     { id: 'mt5', title: 'MT5', desc: 'Coming soon — advanced platform integration in progress.', comingSoon: true },
     { id: 'mt4', title: 'MT4', desc: 'Coming soon — legacy platform integration in progress.', comingSoon: true },
   ];

@@ -21,12 +21,12 @@ export default function LegalFooter() {
       <div className="grid lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-3 text-[12px] text-text-tertiary leading-relaxed">
           <p>
-            EX-Setup (SC) LTD is a Securities Dealer registered in Seychelles with registration number 8423606-1
+            StockPip (SC) LTD is a Securities Dealer registered in Seychelles with registration number 8423606-1
             and authorised by the Financial Services Authority (FSA) with licence number SD025. The registered
-            office of EX-Setup (SC) LTD is at 9A CT House, 2nd floor, Providence, Mahe, Seychelles.
+            office of StockPip (SC) LTD is at 9A CT House, 2nd floor, Providence, Mahe, Seychelles.
           </p>
           <p>
-            The information on this website may only be copied with the express written permission of EX-Setup.
+            The information on this website may only be copied with the express written permission of StockPip.
             General Risk Warning: CFDs are leveraged products. Trading in CFDs carries a high level of risk thus
             may not be appropriate for all investors. The investment value can both increase and decrease and
             the investors may lose all their invested capital. Under no circumstances shall the Company have any
@@ -35,7 +35,7 @@ export default function LegalFooter() {
             <a href="#" className="text-[#1e88ff] hover:underline">Learn more</a>
           </p>
           <p>
-            EX-Setup complies with the Payment Card Industry Data Security Standard (PCI DSS) to ensure your
+            StockPip complies with the Payment Card Industry Data Security Standard (PCI DSS) to ensure your
             security and privacy. We conduct regular vulnerability scans and penetration tests in accordance
             with the PCI DSS requirements for our business model.
           </p>
@@ -47,7 +47,7 @@ export default function LegalFooter() {
               {label}
             </a>
           ))}
-          <p className="pt-4 text-text-tertiary text-[12px]">© 2008 - 2026. EX-Setup</p>
+          <p className="pt-4 text-text-tertiary text-[12px]">© 2008 - 2026. StockPip</p>
         </div>
       </div>
       <p className="mt-6 text-[11px] text-text-tertiary/70">3.0.46</p>

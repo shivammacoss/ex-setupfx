@@ -11,7 +11,7 @@ type Props = {
 };
 
 /**
- * EX-Setup brand wordmark for dashboard chrome.
+ * StockPip brand wordmark for dashboard chrome.
  */
 export function PipHighWordmark({
   href = '/dashboard',
@@ -30,7 +30,7 @@ export function PipHighWordmark({
           className,
         )}
       >
-        <img src="/images/ex-setup-mark.svg" alt="EX-Setup" className="w-7 h-7 object-contain" />
+        <img src="/images/stockpip-mark.svg" alt="StockPip" className="w-7 h-7 object-contain" />
       </Link>
     );
   }
@@ -38,13 +38,13 @@ export function PipHighWordmark({
   const mark = (
     <span className={cn('inline-flex items-center select-none', className)}>
       <img
-        src="/images/ex-setup-logo-light.svg"
-        alt="EX-Setup"
+        src="/images/stockpip-logo-light.svg"
+        alt="StockPip"
         className={`logo-dark-mode ${cn('h-8 sm:h-10 w-auto object-contain shrink-0', textClassName)}`}
       />
       <img
-        src="/images/ex-setup-logo-on-light.svg"
-        alt="EX-Setup"
+        src="/images/stockpip-logo-on-light.svg"
+        alt="StockPip"
         className={`logo-light-mode ${cn('h-8 sm:h-10 w-auto object-contain shrink-0', textClassName)}`}
       />
     </span>
@@ -64,4 +64,4 @@ export function PipHighWordmark({
 }
 
 /** Re-export under the new brand name. */
-export const EXSetupWordmark = PipHighWordmark;
+export const StockPipWordmark = PipHighWordmark;

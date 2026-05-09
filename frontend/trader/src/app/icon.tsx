@@ -15,13 +15,13 @@ export default function Icon() {
           justifyContent: 'center',
           background: 'linear-gradient(135deg, #FFD24A 0%, #C68A00 100%)',
           color: '#1a1209',
-          fontSize: 32,
+          fontSize: 28,
           fontWeight: 800,
           letterSpacing: -1.5,
           borderRadius: 14,
         }}
       >
-        EX
+        SP
       </div>
     ),
     size,

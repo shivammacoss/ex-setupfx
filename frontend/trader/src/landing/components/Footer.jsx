@@ -23,7 +23,7 @@ const Footer = () => {
     ],
     company: [
       { name: 'About Us', path: '/company/about' },
-      { name: 'Why EX-Setup', path: '/company/why-EX-Setup' },
+      { name: 'Why StockPip', path: '/company/why-StockPip' },
       { name: 'Contact', path: '/company/contact' },
     ],
     education: [
@@ -48,11 +48,11 @@ const Footer = () => {
           <div className="col-span-2 md:col-span-3 lg:col-span-1">
             <ScrollReveal variant="fadeLeft">
               <Link to="/" className="inline-block mb-4">
-                <img src="/images/ex-setup-logo-light.svg" alt="EX-Setup" className="logo-dark-mode h-10 w-auto" />
-            <img src="/images/ex-setup-logo-on-light.svg" alt="EX-Setup" className="logo-light-mode h-10 w-auto" />
+                <img src="/images/stockpip-logo-light.svg" alt="StockPip" className="logo-dark-mode h-10 w-auto" />
+            <img src="/images/stockpip-logo-on-light.svg" alt="StockPip" className="logo-light-mode h-10 w-auto" />
               </Link>
               <p className="text-text-secondary text-sm mb-6">
-                Trade with confidence. Trade with EX-Setup.
+                Trade with confidence. Trade with StockPip.
               </p>
               <ScrollRevealGroup className="flex space-x-3" delay={0.4}>
                 {socialLinks.map((social) => (
@@ -138,7 +138,7 @@ const Footer = () => {
         <ScrollReveal variant="fadeIn" delay={0.5}>
           <div className="pt-8 border-t border-white/5">
             <p className="text-text-secondary text-xs text-center">
-              © 2025 EX-Setup Ltd. All rights reserved. | Risk Warning: Trading involves significant risk of loss.
+              © 2025 StockPip Ltd. All rights reserved. | Risk Warning: Trading involves significant risk of loss.
             </p>
           </div>
         </ScrollReveal>

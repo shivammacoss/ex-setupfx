@@ -210,7 +210,7 @@ export default function KycPage() {
               KYC Verification
             </h1>
             <p className="text-[13.5px] text-text-tertiary mt-1 max-w-2xl">
-              Complete identity verification to unlock deposits, withdrawals, and live trading on EX-Setup.
+              Complete identity verification to unlock deposits, withdrawals, and live trading on StockPip.
             </p>
           </div>
           <StatusBadge status={profile?.kyc_status ?? ''} />

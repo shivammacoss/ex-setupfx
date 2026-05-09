@@ -93,7 +93,7 @@ function RegisterPageInner() {
 
   return (
     <AuthShell>
-      <AuthHeading>Welcome to EX-Setup</AuthHeading>
+      <AuthHeading>Welcome to StockPip</AuthHeading>
       <AuthTabs active="register" />
 
       <form onSubmit={submit} className="space-y-5">

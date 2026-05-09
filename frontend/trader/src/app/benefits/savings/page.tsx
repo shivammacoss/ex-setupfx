@@ -65,7 +65,7 @@ export default function SavingsPage() {
             You don&apos;t have any savings data yet
           </h2>
           <p className="text-sm text-text-secondary mb-5">
-            Trade on a real account to see how much you save with EX-Setup.
+            Trade on a real account to see how much you save with StockPip.
           </p>
           <Link
             href="/accounts"

@@ -211,7 +211,7 @@ export default function MarketNewsPage() {
 
           <p className="mt-12 text-[11px] text-text-tertiary leading-relaxed">
             Headlines aggregated from public market-news RSS feeds (FXStreet, ForexLive, Investing, DailyFX) via the
-            EX-Setup gateway. Tags are auto-extracted from headlines and summaries; click a tag to filter, click
+            StockPip gateway. Tags are auto-extracted from headlines and summaries; click a tag to filter, click
             again to remove. News is for informational purposes only and does not constitute investment advice.
           </p>
         </div>

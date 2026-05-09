@@ -259,7 +259,7 @@ export default function DashboardPage() {
           <div className="relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 sm:p-5">
             <div className="flex items-center gap-3 min-w-0">
               <span className="relative inline-flex items-center justify-center w-11 h-11 shrink-0">
-                <img src="/ex-setup-mark.svg" alt="EX-Setup" className="w-11 h-11 rounded-xl" />
+                <img src="/stockpip-mark.svg" alt="StockPip" className="w-11 h-11 rounded-xl" />
                 <span
                   className="absolute -inset-px rounded-xl pointer-events-none"
                   style={{ boxShadow: '0 0 18px rgba(0,230,118,0.25)' }}
@@ -278,7 +278,7 @@ export default function DashboardPage() {
                 <p className="text-xs text-text-tertiary mt-0.5 flex items-center gap-1.5">
                   <Activity size={11} className="text-buy/80" />
                   <span>
-                    <span className="font-semibold text-text-secondary">EX-Setup</span>
+                    <span className="font-semibold text-text-secondary">StockPip</span>
                     {' '}Admin Console &middot; Operational overview
                   </span>
                 </p>

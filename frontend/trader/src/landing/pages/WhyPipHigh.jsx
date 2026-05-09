@@ -43,7 +43,7 @@ const WhyPipHigh = () => {
       name: 'David Martinez',
       role: 'Professional Trader',
       rating: 5,
-      text: 'Best execution speeds I\'ve experienced. EX-Setup has transformed my trading with their reliable platform and tight spreads.'
+      text: 'Best execution speeds I\'ve experienced. StockPip has transformed my trading with their reliable platform and tight spreads.'
     },
     {
       name: 'Sophie Anderson',
@@ -65,10 +65,10 @@ const WhyPipHigh = () => {
         <div className="container-custom text-center">
           <ScrollReveal variant="fadeUp">
             <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              Why Thousands Choose EX-Setup
+              Why Thousands Choose StockPip
             </h1>
             <p className="text-xl text-text-secondary max-w-3xl mx-auto">
-              Discover what makes EX-Setup the preferred choice for traders worldwide.
+              Discover what makes StockPip the preferred choice for traders worldwide.
             </p>
           </ScrollReveal>
         </div>
@@ -102,7 +102,7 @@ const WhyPipHigh = () => {
               What Our Traders Say
             </h2>
             <p className="text-text-secondary text-center mb-12 max-w-2xl mx-auto">
-              Don't just take our word for it. Here's what our clients have to say about their experience with EX-Setup.
+              Don't just take our word for it. Here's what our clients have to say about their experience with StockPip.
             </p>
           </ScrollReveal>
           <ScrollRevealGroup className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -134,7 +134,7 @@ const WhyPipHigh = () => {
                 Regulatory Compliance
               </h2>
               <p className="text-text-secondary text-lg mb-8">
-                EX-Setup Ltd is authorized and regulated by the Financial Conduct Authority (FCA) in the UK (License No. 123456) and the Cyprus Securities and Exchange Commission (CySEC) (License No. 789/12).
+                StockPip Ltd is authorized and regulated by the Financial Conduct Authority (FCA) in the UK (License No. 123456) and the Cyprus Securities and Exchange Commission (CySEC) (License No. 789/12).
               </p>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="glass-card p-6">
@@ -154,7 +154,7 @@ const WhyPipHigh = () => {
       <section className="section-padding bg-gradient-hero">
         <div className="container-custom text-center">
           <ScrollReveal variant="fadeUp">
-            <h2 className="text-4xl font-bold text-white mb-6">Experience the EX-Setup Difference</h2>
+            <h2 className="text-4xl font-bold text-white mb-6">Experience the StockPip Difference</h2>
             <p className="text-xl text-text-secondary mb-8 max-w-2xl mx-auto">
               Join over 500,000 traders who trust us with their trading journey.
             </p>

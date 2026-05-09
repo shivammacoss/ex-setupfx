@@ -94,14 +94,14 @@ export default function LoginPage() {
             <div className="relative">
               <div className="inline-flex items-center gap-2.5">
                 <span className="relative inline-flex items-center justify-center w-11 h-11 shadow-lg">
-                  <img src="/ex-setup-mark.svg" alt="EX-Setup" className="w-11 h-11 rounded-xl" />
+                  <img src="/stockpip-mark.svg" alt="StockPip" className="w-11 h-11 rounded-xl" />
                   <span
                     className="absolute -inset-px rounded-xl pointer-events-none"
                     style={{ boxShadow: '0 0 24px rgba(0,230,118,0.25)' }}
                   />
                 </span>
                 <span className="font-bold tracking-tight text-lg select-none text-text-primary">
-                  EX-Setup
+                  StockPip
                 </span>
               </div>
 
@@ -147,9 +147,9 @@ export default function LoginPage() {
             {/* Mobile branding */}
             <div className="flex lg:hidden items-center justify-center mb-8">
               <div className="inline-flex items-center gap-2.5">
-                <img src="/ex-setup-mark.svg" alt="EX-Setup" className="w-10 h-10 rounded-xl" />
+                <img src="/stockpip-mark.svg" alt="StockPip" className="w-10 h-10 rounded-xl" />
                 <span className="font-bold tracking-tight text-base text-text-primary">
-                  EX-Setup
+                  StockPip
                 </span>
               </div>
             </div>
@@ -245,7 +245,7 @@ export default function LoginPage() {
             <div className="mt-6 pt-5 border-t border-border-primary/50">
               <div className="flex items-center justify-center gap-1.5 text-xxs text-text-tertiary">
                 <ShieldCheck size={11} className="text-buy/70" />
-                <span>Secure access &middot; EX-Setup Admin v1.0</span>
+                <span>Secure access &middot; StockPip Admin v1.0</span>
               </div>
             </div>
           </div>

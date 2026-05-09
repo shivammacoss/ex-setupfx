@@ -2,7 +2,7 @@ import LandingHeader from '@/components/landing/LandingHeader'
 import LandingFooter from '@/components/landing/LandingFooter'
 import { Monitor, Smartphone, Globe, Zap, BarChart3, Shield } from 'lucide-react'
 
-export const metadata = { title: 'Trading Platforms — EX-Setup' }
+export const metadata = { title: 'Trading Platforms — StockPip' }
 
 export default function PlatformsPage() {
   return (

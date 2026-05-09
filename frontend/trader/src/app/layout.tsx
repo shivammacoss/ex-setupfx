@@ -10,8 +10,8 @@ import TopLoader from '@/components/TopLoader';
 import { I18nProvider } from '@/lib/i18n/I18nContext';
 
 export const metadata: Metadata = {
-  title: 'EX-Setup',
-  description: 'EX-Setup — professional forex and CFD trading platform',
+  title: 'StockPip',
+  description: 'StockPip — professional forex and CFD trading platform',
 };
 
 export const viewport: Viewport = {
