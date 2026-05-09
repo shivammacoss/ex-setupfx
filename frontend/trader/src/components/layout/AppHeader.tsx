@@ -67,10 +67,14 @@ export default function AppHeader() {
           <BalancePill />
         </div>
 
-        <LanguageSwitcher />
-        <HelpButton />
+        <div className="hidden sm:flex items-center gap-1 sm:gap-2">
+          <LanguageSwitcher />
+          <HelpButton />
+        </div>
         <NotificationBell />
-        <AppLauncher />
+        <div className="hidden sm:block">
+          <AppLauncher />
+        </div>
 
         {/* Profile */}
         <div className="relative" ref={menuRef}>
