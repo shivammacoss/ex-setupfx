@@ -132,8 +132,8 @@ function MonthlyChart({ data }: { data: { month: string; profit: number }[] }) {
   );
 }
 
-/* ─── Provider Card (TraderCard pattern) ─── */
-function TraderCard({
+/* ─── Provider profile row (social-feed style) ─── */
+function TraderProfileRow({
   provider,
   onClick,
   onCopy,
@@ -153,101 +153,111 @@ function TraderCard({
     .slice(0, 2)
     .toUpperCase();
 
+  const roiPositive = provider.total_return_pct >= 0;
+
   return (
     <div
       onClick={onClick}
       className={clsx(
-        'relative rounded-xl overflow-hidden border transition-all min-h-[200px] flex flex-col cursor-pointer group',
-        'border-border-primary bg-bg-secondary hover:border-warning/45',
-        '[data-theme="light"]:bg-bg-tertiary [data-theme="light"]:border-black'
+        'group relative flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 px-3 sm:px-4 py-3 sm:py-3.5',
+        'border-b border-border-glass last:border-b-0',
+        'hover:bg-warning/[0.04] transition-colors cursor-pointer',
+        '[data-theme="light"]:border-black/10 [data-theme="light"]:hover:bg-warning/10'
       )}
     >
-      <div className="absolute inset-0 opacity-20 pointer-events-none overflow-hidden">
-        <svg className="absolute bottom-0 left-0 w-full h-20" viewBox="0 0 400 80" preserveAspectRatio="none">
-          <path
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            d="M0 40 Q100 10 200 40 T400 40 L400 80 L0 80 Z"
-            className="text-[var(--text-tertiary)]"
-          />
-        </svg>
-      </div>
-
-      <div className="relative z-10 p-4 flex flex-col flex-1">
-        <div className="flex items-start justify-between gap-2 mb-3">
-          <div className="flex items-center gap-3 min-w-0">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-bg-tertiary border border-border-glass flex items-center justify-center text-sm font-bold text-text-primary shrink-0 [data-theme='light']:border-black">
-              {initials}
-            </div>
-            <div className="min-w-0">
-              <div className="flex items-center gap-1.5">
-                <span className="text-sm font-semibold text-text-primary truncate">{provider.provider_name}</span>
-                <span className="px-1.5 py-0.5 rounded bg-warning/15 text-warning text-[9px] font-bold uppercase shrink-0">Master</span>
-                {isSelf && <span className="px-1.5 py-0.5 rounded bg-buy/15 text-buy text-[9px] font-bold uppercase shrink-0">You</span>}
-              </div>
-              <div className="text-xxs text-text-tertiary mt-0.5">Fee: {provider.performance_fee_pct}% · {provider.followers_count} followers</div>
-            </div>
+      {/* Avatar + identity */}
+      <div className="flex items-start sm:items-center gap-3 min-w-0 flex-1">
+        <div className="relative shrink-0">
+          <div
+            className={clsx(
+              'w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-sm font-bold',
+              'bg-gradient-to-br from-warning/30 via-warning/10 to-transparent text-text-primary',
+              'border border-warning/30',
+              '[data-theme="light"]:border-black/30'
+            )}
+          >
+            {initials}
           </div>
-          {isSelf ? (
-            <div className="flex items-center gap-1.5 shrink-0">
-              <button
-                type="button"
-                onClick={onViewFollowers}
-                className="px-3 py-1.5 text-xs font-semibold rounded-lg border border-buy/40 text-buy hover:bg-buy/15 transition-all"
-              >
-                {provider.followers_count} Followers
-              </button>
-              {provider.is_copying && (
-                <a
-                  href="/social?tab=my-copies"
-                  className="px-3 py-1.5 text-xs font-semibold rounded-lg border border-danger/40 text-danger hover:bg-danger/15 transition-all"
-                  title="You're mirroring your own master — click to stop"
-                >
-                  Stop Self-Follow
-                </a>
-              )}
-            </div>
-          ) : provider.is_copying ? (
-            <span className="shrink-0 px-3 py-1.5 text-xs font-semibold rounded-lg border border-buy/40 text-buy bg-buy/10">
-              Following
-            </span>
-          ) : (
-            <button
-              type="button"
-              onClick={onCopy}
-              className={clsx(
-                'shrink-0 px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all',
-                'border-warning text-warning hover:bg-warning hover:text-black',
-                '[data-theme="light"]:border-black [data-theme="light"]:text-black [data-theme="light"]:hover:bg-black [data-theme="light"]:hover:text-[#F2EFE9]'
-              )}
-            >
-              Follow
-            </button>
+          {isSelf && (
+            <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-buy border-2 border-bg-secondary [data-theme='light']:border-bg-tertiary" aria-hidden />
           )}
         </div>
 
-        <div className="mb-4">
-          <div className="text-xxs text-text-tertiary mb-0.5">Total ROI</div>
-          <div className={clsx('text-xl sm:text-2xl font-bold tabular-nums font-mono', provider.total_return_pct >= 0 ? 'text-buy' : 'text-sell')}>
-            {provider.total_return_pct >= 0 ? '+' : ''}{provider.total_return_pct.toFixed(2)}%
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-1.5 flex-wrap">
+            <span className="text-sm font-semibold text-text-primary truncate">{provider.provider_name}</span>
+            <span className="px-1.5 py-0.5 rounded bg-warning/15 text-warning text-[9px] font-bold uppercase tracking-wider">Master</span>
+            {isSelf && <span className="px-1.5 py-0.5 rounded bg-buy/15 text-buy text-[9px] font-bold uppercase tracking-wider">You</span>}
+          </div>
+          <div className="mt-0.5 text-xxs text-text-tertiary line-clamp-1">
+            {provider.description?.trim()
+              ? provider.description
+              : `Verified strategy manager · ${provider.performance_fee_pct}% performance fee`}
+          </div>
+          {/* Inline meta row — visible on all sizes */}
+          <div className="mt-1.5 flex items-center gap-x-3 gap-y-1 flex-wrap text-xxs">
+            <span className="text-text-tertiary">
+              Fee <span className="text-text-primary font-semibold tabular-nums">{provider.performance_fee_pct}%</span>
+            </span>
+            <span className="hidden sm:inline text-border-glass">·</span>
+            <span className={clsx('font-semibold tabular-nums', roiPositive ? 'text-buy' : 'text-sell')}>
+              ROI {roiPositive ? '+' : ''}{provider.total_return_pct.toFixed(2)}%
+            </span>
+            <span className="hidden sm:inline text-border-glass">·</span>
+            <span className="text-text-tertiary">
+              DD <span className="text-sell font-semibold tabular-nums">{provider.max_drawdown_pct.toFixed(2)}%</span>
+            </span>
+            <span className="hidden sm:inline text-border-glass">·</span>
+            <span className="text-text-tertiary">
+              Sharpe <span className="text-text-primary font-semibold tabular-nums">{provider.sharpe_ratio.toFixed(2)}</span>
+            </span>
+            <span className="hidden sm:inline text-border-glass">·</span>
+            <span className="text-text-tertiary">
+              <span className="text-text-primary font-semibold tabular-nums">{provider.followers_count.toLocaleString()}</span> followers
+            </span>
           </div>
         </div>
+      </div>
 
-        <div className="grid grid-cols-3 gap-2 mt-auto pt-3 border-t border-border-glass [data-theme='light']:border-black">
-          <div>
-            <div className="text-xxs text-text-tertiary">Drawdown</div>
-            <div className="text-xs font-semibold tabular-nums text-sell">{provider.max_drawdown_pct.toFixed(2)}%</div>
-          </div>
-          <div>
-            <div className="text-xxs text-text-tertiary">Sharpe</div>
-            <div className="text-xs font-semibold tabular-nums text-text-primary">{provider.sharpe_ratio.toFixed(2)}</div>
-          </div>
-          <div>
-            <div className="text-xxs text-text-tertiary">Followers</div>
-            <div className="text-xs font-semibold tabular-nums text-text-primary">{provider.followers_count.toLocaleString()}</div>
-          </div>
-        </div>
+      {/* Action — sits at right on desktop, full width on mobile */}
+      <div className="shrink-0 flex items-center gap-2 sm:ml-auto">
+        {isSelf ? (
+          <>
+            <button
+              type="button"
+              onClick={onViewFollowers}
+              className="px-3 py-1.5 text-xs font-semibold rounded-full border border-buy/40 text-buy hover:bg-buy/15 transition-all whitespace-nowrap"
+            >
+              {provider.followers_count} Followers
+            </button>
+            {provider.is_copying && (
+              <a
+                href="/social?tab=my-copies"
+                onClick={(e) => e.stopPropagation()}
+                className="px-3 py-1.5 text-xs font-semibold rounded-full border border-danger/40 text-danger hover:bg-danger/15 transition-all whitespace-nowrap"
+                title="You're mirroring your own master — click to stop"
+              >
+                Stop Self-Follow
+              </a>
+            )}
+          </>
+        ) : provider.is_copying ? (
+          <span className="px-3.5 py-1.5 text-xs font-semibold rounded-full border border-buy/40 text-buy bg-buy/10 whitespace-nowrap">
+            Following
+          </span>
+        ) : (
+          <button
+            type="button"
+            onClick={onCopy}
+            className={clsx(
+              'px-4 py-1.5 text-xs font-semibold rounded-full transition-all whitespace-nowrap',
+              'bg-warning text-black hover:bg-warning/90',
+              '[data-theme="light"]:bg-black [data-theme="light"]:text-[#F2EFE9] [data-theme="light"]:hover:bg-black/85'
+            )}
+          >
+            + Follow
+          </button>
+        )}
       </div>
     </div>
   );
@@ -548,9 +558,9 @@ function LeaderboardTab() {
         <EmptyState message="No providers found" />
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+          <div className="rounded-xl border border-border-primary bg-bg-secondary overflow-hidden [data-theme='light']:border-black/15 [data-theme='light']:bg-bg-tertiary">
             {providers.map((p) => (
-              <TraderCard
+              <TraderProfileRow
                 key={p.id}
                 provider={p}
                 isSelf={p.user_id === currentUserId}
@@ -892,22 +902,12 @@ function SocialPageInner() {
     <DashboardShell mainClassName="p-0 flex flex-col min-h-0 overflow-hidden">
       <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden">
         <div className="w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
-          {/* Hero — compact on mobile */}
-          <section className="relative overflow-hidden rounded-xl border border-border-primary bg-card mb-3 sm:mb-5">
-            <div
-              className="pointer-events-none absolute inset-0 bg-gradient-to-br from-warning/[0.18] via-transparent to-warning/[0.06]"
-              aria-hidden
-            />
-            <div className="relative z-10 px-3 sm:px-6 py-3 sm:py-8">
-              <h1 className="text-base sm:text-3xl font-bold text-text-primary mb-1 sm:mb-2 leading-tight">
-                Copy Trading — Follow Global Elite Traders
-              </h1>
-              <p className="text-xs sm:text-sm text-text-secondary max-w-2xl hidden sm:block">
-                Follow top performers and replicate their strategies automatically. For pooled accounts, use{' '}
-                <span className="text-warning font-medium">PAMM</span> in the sidebar.
-              </p>
-            </div>
-          </section>
+          <div className="flex items-center gap-2 mb-3 sm:mb-4 px-1">
+            <span className="inline-block h-4 w-1 rounded-full bg-warning" aria-hidden />
+            <h1 className="text-sm sm:text-base font-semibold tracking-tight text-text-primary">
+              Copy Trade Section
+            </h1>
+          </div>
 
           <div className="overflow-hidden rounded-xl border border-border-primary bg-card">
             <div className="relative border-b border-border-primary bg-card overflow-x-auto scrollbar-none">
