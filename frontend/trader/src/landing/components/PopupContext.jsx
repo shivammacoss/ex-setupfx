@@ -3,7 +3,7 @@ import { X, Shield, User, Mail, Phone, ArrowRight } from 'lucide-react'
 
 const PopupContext = createContext()
 
-export const usePopup = () => useContext(PopupContext)
+export const usePopup = () => useContext(PopupContext) || { openPopup: () => {}, closePopup: () => {} }
 
 export const PopupProvider = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false)
